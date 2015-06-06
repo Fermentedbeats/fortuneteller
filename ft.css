@@ -1,0 +1,50 @@
+#main {
+	display: inline-block;
+	width: 90%;
+	margin-left: 5%;
+}
+#board {
+	border: 1px solid black;
+	display: inline-block;
+	width: 304px;
+	margin-left: 10%;
+	float: left;
+}
+
+#ur, #ul, #ll, #lr {
+	float: left;
+	border: 1px solid black;
+	width: 150px;
+	height: 150px;
+}
+
+#side {
+	border: 1px solid black;
+	height: 300px;
+	width: 400px;
+	margin-left: 5%;
+	float: left;
+	border-radius: 15%;
+	text-align: center;
+	display: inline-block;
+}
+/*margin*/
+#board, #side {
+	margin-top: 10%;
+
+}
+#begin {
+	margin: auto;
+	margin-top: 5%;
+	margin-bottom: 5%;
+	border-radius: 15%;
+}
+.colors {
+	border: 1px solid black;
+	border-radius: 15%;
+	width: 30px;
+	height: 15px;
+	float: left;
+	margin-left: 3%;
+	margin-bottom: 3%;
+}
