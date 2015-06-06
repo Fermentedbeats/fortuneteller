@@ -1,0 +1,2 @@
+# fortuneteller
+off dat paper
