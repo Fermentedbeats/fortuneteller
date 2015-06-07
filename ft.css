@@ -1,3 +1,9 @@
+div {
+	box-sizing:border-box;
+  -moz-box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+}
+
 #main {
 	display: inline-block;
 	width: 90%;
@@ -10,7 +16,7 @@
 	float: left;
 }
 
-#ur, #ul, #ll, #lr {
+.cards {
 	float: left;
 	border: 1px solid black;
 	width: 125px;
@@ -18,8 +24,12 @@
 	margin-left: 1em;
 	margin-bottom: 1em;
 	border-radius: 15%;
-	background-image: url(cardLowRes.png);
+	background-image: url(imgs/cardLowRes.png);
 	background-size: 100%;
+}
+
+#assigned {
+	text-align: center;
 }
 
 #side {

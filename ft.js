@@ -5,7 +5,7 @@ function begin() {
 		populateColors();
 	});
 }
-
+// populate color divs and or change colors in existing divs
 function populateColors() {
 	var menu = document.getElementById("menu");
 	var divs = menu.getElementsByTagName("div");
@@ -79,13 +79,55 @@ function findColorNum(color) {
 	if (colorNum === undefined) {
 		colorNum = Math.floor(Math.random()*6);
 	}
-	flipCard(colorNum);
+	flipCard(colorNum, color);
 }
 
 
-function flipCard(num) {
-	console.log("num is " + num);
+function flipCard(num, color) {
+	TweenMax.set(".board", {transformPerspective: 600});
+	TweenMax.staggerFrom(".cards", 1.5, {
+		rotationX: 40 * num,
+		rotationY: 180 * num,
+		z: 100,
+		ease:Back.easeInOut,
+		onComplete: tellFortune(num, color),
+		// transformPerspective:300,
+		// transformOrigin: "left 20%"
+	});
+
+function tellFortune(num, color) {
+	for (var n =0; n < 4; n++) {
+		var cards = document.getElementsByClassName("cards");
+		if (cards[n].id != "assigned") {
+			var card = cards[n];
+			card.style.border = "10px solid " + color;
+			card.style.color = color;
+			card.innerHTML = fortunes(num); 
+			card.style.backgroundImage = fortuneImages();
+			card.setAttribute("id", "assigned");
+			break;
+		}
+	}
 }
+	
+
+}
+
+function fortunes(num) {
+	var num = Math.floor(Math.random()*num);
+	var cards = ["WEALTH", "FORTUNE", "HAPPINESS", "SORROW", "LOSS", "SHAME", "REGRETS", "JOY", "HEALTH", "SUCCESS", "MONEY", "CALM", "RESPECT", "FAMILY", "ADVENTURE", "THRILLS", "LOVE", "TIME", "DEEP", "LONGING", "MURDER", "INTRIGUE", "STRANGER", "WISDOM", "CHOICES", "EASY", "HARD"]
+	var future = cards[num];
+	cards.slice(num, num+1);
+	return future;
+}
+function fortuneImages() {
+	var imgs = 
+
+	return "url('img/stock" + + "')";
+}
+
+
+
 // 3. choose a num
 // apply num to card spins + result
 
