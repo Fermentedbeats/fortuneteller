@@ -4,33 +4,36 @@
 	margin-left: 5%;
 }
 #board {
-	border: 1px solid black;
 	display: inline-block;
-	width: 304px;
-	margin-left: 10%;
+	width: 300px;
+	margin-left: 15%;
 	float: left;
 }
 
 #ur, #ul, #ll, #lr {
 	float: left;
 	border: 1px solid black;
-	width: 150px;
+	width: 125px;
 	height: 150px;
+	margin-left: 1em;
+	margin-bottom: 1em;
+	border-radius: 15%;
+	background-image: url(cardLowRes.png);
+	background-size: 100%;
 }
 
 #side {
 	/*border: 1px solid black;*/
 	height: 300px;
-	width: 300px;
+	width: 230px;
 	margin-left: 5%;
 	float: left;
 	border-radius: 15%;
 	text-align: center;
 	display: inline-block;
 }
-
 #begin {
-	margin-left: 52%;
+	margin-left: 40%;
 	margin-top: 2%;
 	border-radius: 15%;
 	font-size: 1em;
