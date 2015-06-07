@@ -19,9 +19,9 @@
 }
 
 #side {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	height: 300px;
-	width: 400px;
+	width: 300px;
 	margin-left: 5%;
 	float: left;
 	border-radius: 15%;
@@ -30,9 +30,8 @@
 }
 
 #begin {
-	margin: auto;
-	margin-top: 5%;
-	margin-bottom: 5%;
+	margin-left: 52%;
+	margin-top: 2%;
 	border-radius: 15%;
 	font-size: 1em;
 }
