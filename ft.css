@@ -16,7 +16,7 @@ div {
 	float: left;
 }
 
-.cards {
+.cards, .assigned {
 	float: left;
 	border: 1px solid black;
 	width: 125px;
@@ -26,11 +26,11 @@ div {
 	border-radius: 15%;
 	background-image: url(imgs/cardLowRes.png);
 	background-size: 100%;
+	text-align: center;
+
 }
 
-#assigned {
-	text-align: center;
-}
+
 
 #side {
 	/*border: 1px solid black;*/

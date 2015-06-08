@@ -12,7 +12,7 @@ function populateColors() {
 
 	// create colors for first-time run
 	if (divs.length === 0) {
-		for (var i = 0; i < 70; i++) {
+		for (var i = 0; i < 72; i++) {
 			var next = createColorDiv();
 			next.className = "colors";
 			menu.appendChild(next);
@@ -90,41 +90,52 @@ function flipCard(num, color) {
 		rotationY: 180 * num,
 		z: 100,
 		ease:Back.easeInOut,
-		onComplete: tellFortune(num, color),
+		repeatDelay:0.2, 
+		// onComplete: tellFortune(num, color),
+		// onCompleteParams:[num, color]
 		// transformPerspective:300,
 		// transformOrigin: "left 20%"
 	});
+	tellFortune(num, color);
+}
 
 function tellFortune(num, color) {
 	for (var n =0; n < 4; n++) {
 		var cards = document.getElementsByClassName("cards");
 		if (cards[n].id != "assigned") {
 			var card = cards[n];
-			card.style.border = "10px solid " + color;
+			card.style.border = "6px solid " + color;
 			card.style.color = color;
 			card.innerHTML = fortunes(num); 
-			card.style.backgroundImage = fortuneImages();
-			card.setAttribute("id", "assigned");
+			card.style.backgroundImage = fortuneImages(num);
+			card.style.backgroundSize = "150%";
+			card.setAttribute("class", "assigned");
 			break;
 		}
 	}
 }
 	
 
-}
+
 
 function fortunes(num) {
-	var num = Math.floor(Math.random()*num);
-	var cards = ["WEALTH", "FORTUNE", "HAPPINESS", "SORROW", "LOSS", "SHAME", "REGRETS", "JOY", "HEALTH", "SUCCESS", "MONEY", "CALM", "RESPECT", "FAMILY", "ADVENTURE", "THRILLS", "LOVE", "TIME", "DEEP", "LONGING", "MURDER", "INTRIGUE", "STRANGER", "WISDOM", "CHOICES", "EASY", "HARD"]
+
+	var cards = ["WEALTH", "FORTUNE", "HAPPINESS", "SORROW", "LOSS", "SHAME", "REGRETS", "JOY", "HEALTH", "SUCCESS", "MONEY", "CALM", "RESPECT", "FAMILY", "ADVENTURE", "THRILLS", "LOVE", "TIME", "DEEP", "LONGING", "MURDER", "INTRIGUE", "STRANGER", "WISDOM", "CHOICES", "EASY", "HARD"];
+		var num = Math.floor(Math.random()*cards.length);
 	var future = cards[num];
-	cards.slice(num, num+1);
+	cards.splice(num, 1);
 	return future;
 }
-function fortuneImages() {
-	var imgs = 
 
-	return "url('img/stock" + + "')";
-}
+
+function fortuneImages(num) {
+	var num = Math.floor(Math.random()*num);
+	var imgs = [1,2,3,4,5,6,7,8,9];
+	var img = imgs[num];
+	imgs.splice(num, 1);
+	return "url('imgs/" + img + ".png')";
+	}
+
 
 
 
