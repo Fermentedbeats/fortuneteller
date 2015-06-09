@@ -1,109 +1,117 @@
 
 function fortuneTellerApp() {
-//global vars
 
-var cards = ["WEALTH", "FORTUNE", "HAPPINESS", "SORROW", "LOSS", "SHAME", "REGRETS", "JOY", "HEALTH", "SUCCESS", "MONEY", "CALM", "RESPECT", "FAMILY", "ADVENTURE", "THRILLS", "LOVE", "TIME", "DEEP", "LONGING", "MYSTERY", "INTRIGUE", "STRANGER", "WISDOM", "CHOICES", "EASY", "HARDSHIP", "PEACE"];
-var imgs = [1,2,3,4,5,6,7,8,9];
-var round = 1;
+	//global vars
+	var cards = ["WEALTH", "FORTUNE", "HAPPINESS", "SORROW", "LOSS", "SHAME", "REGRETS"	, "JOY", "HEALTH", "SUCCESS", "MONEY", "CALM", "RESPECT", "FAMILY", "ADVENTURE"	, "THRILLS", "LOVE", "TIME", "DEEP", "LONGING", "MYSTERY", "INTRIGUE", "	STRANGER", "WISDOM", "CHOICES", "EASY", "HARDSHIP", "PEACE"];
+	var imgs = [1,2,3,4,5,6,7,8,9];
+	var symbols = ["fa-mars", "fa-heartbeat", "fa-diamond", "fa-motorcycle", "fa-anchor", "fa-bicycle", "fa-cube","fa-heart", "fa-key", "fa-flash", "fa-glass", "fa-headphones", "fa-plug", "fa-music"]
+	var round = 1;
+	var currentHex = "";
+	var colorDivs = document.getElementById("menu").getElementsByTagName("div");
+	var header = document.getElementById("header");
 
 
-// 1. game begins w/ offering  color pallete
+
+// 1. game begins w/ offering  color palette
 function begin() {
 	var btn = document.getElementById("begin");
 	btn.addEventListener("click", function() {
 		populateColors();
 	});
 }
-// populate color divs and or change colors in existing divs
-function populateColors() {
-	var menu = document.getElementById("menu");
-	var divs = menu.getElementsByTagName("div");
-
+	// populate color divs and or change colors in existing divs
+	function populateColors() {
 	// create colors for first-time run
-	if (divs.length === 0) {
+	if (colorDivs.length === 0) {
 		for (var i = 0; i < 11; i++) {
 			var next = createColorDiv();
 			next.className = "colors";
 			menu.appendChild(next);
-			// assign shape to divs
-			TweenMax.to(next, .75, {
- 		   		borderRadius:"0px 20px"
-			});
-
 
 			// drop divs from sky, rotate & bounce
-			var randBounce = Math.floor(Math.random()*1080 - 540)
-			TweenMax.from(next, i*.3, {opacity:0, scale:0, rotation:randBounce, ease: Elastic.easeOut, y:randBounce, x:randBounce});
+			var randBounce = randNum(1080 - 540);
+			TweenMax.from(next, i*.1, {opacity:0, scale:0, rotation:randBounce, ease: Elastic.easeOut, y:randBounce, x:randBounce});
 		}
 
 		function createColorDiv() {
 			var div = document.createElement("div");
 			var color = div.style.backgroundColor = assignColor();
 			div.addEventListener("click", function() {
-				findColorNum(color, div);
+				bounce(div);
+				div.style.backgroundColor === "transparent" ? currentHex = div.style.color : currentHex = div.style.backgroundColor 
 			});	
 			return div;
 		}
 		// change button text
-		document.getElementById("begin").value = "Screw this, I want better colors";
-
+		document.getElementById("begin").style.visibility = "hidden";
+		// document.getElementById("begin").value = "Screw this, I want better colors";
 		createChooseColorHeader();
 	}
-	else {
-		for (var k = 0; k < divs.length; k++) {
-			divs[k].style.backgroundColor = assignColor();
-			// in place buttons refresh & bounce
-			TweenMax.from(divs[k], 0.5, {opacity:0, scale:0, ease: Bounce.easeInOut});
+	// else {
+	// 	for (var k = 0; k < divs.length; k++) {
+	// 		divs[k].style.backgroundColor = assignColor();
+	// 		// in place buttons refresh & bounce
+	// 		TweenMax.from(divs[k], 0.5, {opacity:0, scale:0, ease: Bounce.easeInOut});
 
-		}
-	}
+		// }
+	// }
 	// generate random hex color
 }
-	function assignColor() {
-		var hex = "#";
-		colorArray = [1,2,3,4,5,6,7,8,9,"a","b","c","d","e","f"];
-		for (var j=0; j < 6; j++) {
-			var rando = Math.floor(Math.random()*colorArray.length);
-			hex += colorArray[rando];
-		}
-		return hex;
+function assignColor() {
+	var hex = "#";
+	colorArray = [1,2,3,4,5,6,7,8,9,"a","b","c","d","e","f"];
+	for (var j=0; j < 6; j++) {
+		var rando = randNum(colorArray.length);
+		hex += colorArray[rando];
 	}
+	currentHex = hex;
+	return currentHex;
+}
 // change title on page to ask for color selection
 function createChooseColorHeader() {
-	var header = document.getElementById("header");
 	header.innerHTML = "Choose A Color";
 	// slide in title from left
 	TweenMax.from(header, 2, {opacity:0, x:-800, ease:Elastic.eastInOut}, 0.7);
 }
 
 // 2. color is chosen
-function findColorNum(color, div) {
+function bounce(div) {
 	// animate elasticity on button when clicked
-	TweenMax.from(div, 0.5, {opacity:0, scale:0, ease: Bounce.easeInOut});
+	TweenMax.from(div, 0.5, {
+		opacity:0, 
+		scale:0, 
+		ease: Bounce.easeInOut,
+		onComplete: findColorNum,
+	});
 
-	console.log("COLOR IS " + color)
+}
+
+
+function findColorNum() {
+
+	console.log("COLOR IS " + currentHex);
 	// find num in hex and apply that to card spins + result
 	var colorNum;
 	// iterate thru hex chars
-	for (var m = 1; m < color.length; m++) {
+	for (var m = 1; m < currentHex.length; m++) {
 		// if you have a hex letter instead of a num numTF is false
-		var numTF = isNaN(color[m] * 1);
+		var numTF = isNaN(currentHex[m] * 1);
 		//if you do have a num, assign it to the var colorNum
 		if (!numTF) {
-			colorNum = color[m];
+			colorNum = currentHex[m];
 			break;
 		}
 	}
 	// if the hex contained no nums, generate a random num
 	if (colorNum === undefined) {
-		colorNum = Math.floor(Math.random()*6);
+		colorNum = randNum(6);
 	}
-	flipCard(colorNum, color);
+	flipCard(colorNum);
 
 }
 
 // spin card when revealing fortune
-function flipCard(num, color) {
+function flipCard(num) {
 	TweenMax.set(".board", {transformPerspective: 600});
 	TweenMax.staggerFrom(".cards", 1.5, {
 		rotationX: 40 * num,
@@ -116,18 +124,18 @@ function flipCard(num, color) {
 		// transformPerspective:300,
 		// transformOrigin: "left 20%"
 	});
-	tellFortune(num, color);
+	tellFortune(num);
 }
 
 // replace card with fortune word & pic
-function tellFortune(num, color) {
+function tellFortune(num) {
 	for (var n =0; n < 4; n++) {
 		var cards = document.getElementsByClassName("cards");
 		if (cards[n].id != "assigned" && cards[n].id != "lr") {
 			var card = cards[n];
-			card.style.border = "6px solid " + color;
-			card.style.color = color;
-			card.style.textShadow = "2px 2px 4px #000000";
+			card.style.border = "6px solid " + currentHex;
+			card.style.color = currentHex;
+			card.style.textShadow = "2px 2px 4px black";
 			card.innerHTML = fortunes(); 
 			card.style.backgroundImage = fortuneImages();
 			card.style.backgroundSize = "150%";
@@ -136,89 +144,113 @@ function tellFortune(num, color) {
 			break;
 		}
 	}
-			if (round === 2) {
-				round2();
-			}
-			else {
-				round3();
-			}
+	if (round === 2) {
+		round2();
+	}
+	else if (round === 3) {
+		round3();
+	}
+	else {
+		round4();
+	}
 }
 
 // affix a fortune word to a card
 function fortunes() {
-	var num = Math.floor(Math.random()*cards.length);
+	var num = randNum(cards.length);
 	var future = cards[num];
 	cards.splice(num, 1);
 	return future;
 }
 //affix background image to fortune card
 function fortuneImages() {
-	var num = Math.floor(Math.random()*imgs.length);
+	var num = randNum(imgs.length);
 	var img = imgs[num];
 	imgs.splice(num, 1);
 	return "url('imgs/" + img + ".png')";
 }
 // 3. choose a num, num flips the next fortune
 function round2() {
-
-	var menu = document.getElementById("menu");
-	var colorDivs = menu.getElementsByTagName("div");
 	for (var p = 0; p < colorDivs.length; p++) {
-		colorDivs[p].style.backgroundColor = "black";
-		colorDivs[p].innerHTML = randNum();
+		colorDivs[p].style.backgroundColor = "transparent";
+		colorDivs[p].innerHTML = randNum(200);
 		colorDivs[p].style.color = assignColor();
-		colorDivs[p].style.borderRadius = "50%";
 		colorDivs[p].style.fontSize = "1.25em";
 	}
 	// change button text
-	document.getElementById("begin").value = "I want different numbers";
+	// document.getElementById("begin").value = "I want different numbers";
 	// slide in new header
-    var header = document.getElementById("header");
 	header.innerHTML = "Choose A Number";
 	// slide in title from right
 	TweenMax.from(header, 2, {opacity:0, x:800, ease:Elastic.eastInOut}, 0.7);
 }
 
 function round3() {
-	var menu = document.getElementById("menu");
-	var colorDivs = menu.getElementsByTagName("div");
-	for (var q = 0; q < colorDivs.length; q++) {
-		colorDivs[q].style.backgroundImage = "imgs/cardLowRes.png";
-		colorDivs[q].innerHTML = "";
-		colorDivs[q].style.border = "1px solid grey";
-		TweenMax.to(colorDivs[q], .75, {
- 		   		borderRadius:randShape()
-			});
-	}
-	// change button text
-	document.getElementById("begin").value = "I want new shapes";
-	// slide in new header
-    var header = document.getElementById("header");
 	header.innerHTML = "Choose A Shape";
-	// slide in title from right
-	TweenMax.from(header, 2, {opacity:0, x:800, ease:Elastic.eastInOut}, 0.7);
-	round4();
+	for (var q = 0; q < colorDivs.length; q++) {
+		colorDivs[q].innerHTML = "";
+		colorDivs[q].style.backgroundColor = assignColor();
+
+		TweenMax.to(colorDivs[q], .75, {
+			borderRadius:randShape()
+		});
+	}
+
+	// slide in new header
+
+	// slide in title from top
+	TweenMax.from(header, 1, {opacity:0, y:-100, ease:Elastic.eastInOut}, 0.7);
 }
 
 function round4() {
-	document.getElementById("begin").value = "I want new shapes";
+	// document.getElementById("begin").value = "I want new shapes";
+	var header = document.getElementById("header");
+	header.innerHTML = "Choose a Symbol";
+	// slide in title from right
+	TweenMax.from(header, 1.5, {opacity:0, x:800, ease:Elastic.eastInOut}, 0.7);
 
+	for (var s = 0; s < colorDivs.length; s++) {
+		colorDivs[s].innerHTML = "<i class='fa " + symbols[randNum(symbols.length)] + "'</i>"
+		colorDivs[s].style.color = assignColor();
+		colorDivs[s].style.backgroundColor = "transparent";
+		colorDivs[s].style.fontSize = "1.25em";
+	}
+	for (var n =0; n < 4; n++) {
+		var cards = document.getElementsByClassName("cards");
+		if (cards[n].id === "lr") {
+			var card = cards[n];
+			card.style.border = "6px solid " + currentHex;
+			card.style.color = currentHex;
+			card.style.textShadow = "2px 2px 4px black";
+			card.innerHTML = fortunes(); 
+			card.style.backgroundImage = fortuneImages();
+			card.style.backgroundSize = "150%";
+			card.setAttribute("class", "assigned");
+		}
+		// TweenMax.to(.cards, 2, {x:-800, ease:Elastic.eastInOut}, 0.7);
+		var hide = document.getElementById("side");
+		console.log(hide)
+		hide.style.visibility = "hidden";
+		var cont = document.getElementsByClassName("board");
+		cont.width =  "600px";
+	}
 }
 
-function randShape() {
-	var shapes = ["25px","50px","0px 20px","20px 0px","0px 20px 50px","20px 0px 50px","0px 20px 50px 50px","50px 0px 20px 50px","50px 50px 50px 0px","50px 0px 50px 50px"];
-	var shapeIndex = Math.floor(Math.random()*shapes.length)
-	var shapeMaker = shapes[shapeIndex];
-	return shapeMaker
-}
+
+		function randShape() {
+			var shapes = ["25px","50px","0px 20px","20px 0px","0px 20px 50px","20px 0px 50px","0px 20px 50px 50px","50px 0px 20px 50px","50px 50px 50px 0px","50px 0px 50px 50px"];
+			var shapeIndex = Math.floor(Math.random()*shapes.length)
+			var shapeMaker = shapes[shapeIndex];
+			return shapeMaker
+		}
 
 
-function randNum() {
-  var rand = Math.floor(Math.random()*200);
-  return rand;
-}
+		function randNum(num) {
+			var rand = Math.floor(Math.random()*num);
+			return rand;
+		}
 
-begin();
-}
+		begin();
+	}
 
-fortuneTellerApp();
+	fortuneTellerApp();
