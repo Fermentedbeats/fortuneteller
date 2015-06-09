@@ -131,7 +131,7 @@ function flipCard(num) {
 function tellFortune(num) {
 	for (var n =0; n < 4; n++) {
 		var cards = document.getElementsByClassName("cards");
-		if (cards[n].id != "assigned" && cards[n].id != "lr") {
+		if (cards[n].id != "assigned") {
 			var card = cards[n];
 			card.style.border = "6px solid " + currentHex;
 			card.style.color = currentHex;
@@ -150,8 +150,11 @@ function tellFortune(num) {
 	else if (round === 3) {
 		round3();
 	}
-	else {
+	else if (round === 4) {
 		round4();
+	}
+	else {
+		finish();
 	}
 }
 
@@ -215,27 +218,32 @@ function round4() {
 		colorDivs[s].style.backgroundColor = "transparent";
 		colorDivs[s].style.fontSize = "1.25em";
 	}
-	for (var n =0; n < 4; n++) {
-		var cards = document.getElementsByClassName("cards");
-		if (cards[n].id === "lr") {
-			var card = cards[n];
-			card.style.border = "6px solid " + currentHex;
-			card.style.color = currentHex;
-			card.style.textShadow = "2px 2px 4px black";
-			card.innerHTML = fortunes(); 
-			card.style.backgroundImage = fortuneImages();
-			card.style.backgroundSize = "150%";
-			card.setAttribute("class", "assigned");
-		}
-		// TweenMax.to(.cards, 2, {x:-800, ease:Elastic.eastInOut}, 0.7);
-		var hide = document.getElementById("side");
-		console.log(hide)
-		hide.style.visibility = "hidden";
-		var cont = document.getElementsByClassName("board");
-		cont.width =  "600px";
-	}
 }
 
+
+function finish() {
+		var hide = document.getElementById("side");
+		hide.style.visibility = "hidden";
+		var cont = document.getElementById("board");
+		cont.style.width = "1300px";
+		TweenMax.to(".cards", 2, {x:50, ease:Elastic.eastInOut, onComplete:blowUp}, 0.7);
+	
+}
+
+function blowUp() {
+		header.innerHTML = "Your Future:";
+
+		var cards = document.getElementsByClassName("assigned");
+	for (var n =0; n < 4; n++) {
+		cards[n].style.width = "250px";
+		cards[n].style.height = "300px";
+		cards[n].style.fontSize = "2em";
+	}
+	document.getElementById("board").style.marginLeft = "1%";
+
+
+
+}
 
 		function randShape() {
 			var shapes = ["25px","50px","0px 20px","20px 0px","0px 20px 50px","20px 0px 50px","0px 20px 50px 50px","50px 0px 20px 50px","50px 50px 50px 0px","50px 0px 50px 50px"];
