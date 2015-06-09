@@ -35,7 +35,7 @@ div {
 #side {
 	/*border: 1px solid black;*/
 	height: 300px;
-	width: 90px;
+	width: 70px;
 	margin-left: 5%;
 	float: left;
 	border-radius: 15%;
@@ -51,7 +51,7 @@ div {
 .colors {
 	/*border: 1px solid black;*/
 	border-radius: 15%;
-	width: 50px;
+	width: 40px;
 	height: 25px;
 	float: left;
 	margin-left: 3%;
