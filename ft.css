@@ -6,6 +6,7 @@ div {
 
 .curtain {
 	background-color: black;
+	height: 1200px;
 }
 #main {
 	display: inline-block;
@@ -45,7 +46,7 @@ div {
 	text-align: center;
 	display: inline-block;
 }
-#begin {
+#begin, #newButton {
 	margin-left: 40%;
 	margin-top: 2%;
 	border-radius: 15%;

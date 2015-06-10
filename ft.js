@@ -185,11 +185,13 @@ function round2() {
 	// slide in new header
 	header.innerHTML = "Choose A Number";
 	// slide in title from right
-	TweenMax.from(header, 2, {opacity:0, x:800, ease:Elastic.eastInOut}, 0.7);
+	TweenMax.from(header, 1, {opacity:0, x:800, ease:Elastic.eastInOut}, 0.7);
 }
 
 function round3() {
 	header.innerHTML = "Choose A Shape";
+	TweenMax.from(header, 1, {opacity:0, y:-100, ease:Elastic.eastInOut}, 0.7);
+
 	for (var q = 0; q < colorDivs.length; q++) {
 		colorDivs[q].innerHTML = "";
 		colorDivs[q].style.backgroundColor = assignColor();
@@ -202,7 +204,6 @@ function round3() {
 	// slide in new header
 
 	// slide in title from top
-	TweenMax.from(header, 1, {opacity:0, y:-100, ease:Elastic.eastInOut}, 0.7);
 }
 
 function round4() {
@@ -210,7 +211,7 @@ function round4() {
 	var header = document.getElementById("header");
 	header.innerHTML = "Choose a Symbol";
 	// slide in title from right
-	TweenMax.from(header, 1.5, {opacity:0, x:800, ease:Elastic.eastInOut}, 0.7);
+	TweenMax.from(header, 1, {opacity:0, y:1200, ease:Elastic.eastInOut}, 0.7);
 
 	for (var s = 0; s < colorDivs.length; s++) {
 		colorDivs[s].innerHTML = "<i class='fa " + symbols[randNum(symbols.length)] + "'</i>"
@@ -241,6 +242,11 @@ function blowUp() {
 	}
 	document.getElementById("board").style.marginLeft = "1%";
 
+// var newButton = document.createElement('button');
+// newButton.id = "newButton";
+// document.getElementById("board").appendChild(newButton);
+// newButton.innerHTML = "Play Again?";
+// newButton.addEventListener("click", fortuneTellerApp());
 
 
 }
