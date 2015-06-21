@@ -17,6 +17,8 @@ function begin() {
 	var btn = document.getElementById("begin");
 	btn.addEventListener("click", function() {
 		populateColors();
+		var sidebar = document.getElementsByClassName("sidebar");
+		sidebar[0].style.display = "none";
 	});
 }
 	// populate color divs and or change colors in existing divs
@@ -223,24 +225,30 @@ function round4() {
 
 
 function finish() {
-		var hide = document.getElementById("side");
-		hide.style.visibility = "hidden";
-		var cont = document.getElementById("board");
-		cont.style.width = "1300px";
-		TweenMax.to(".cards", 2, {x:50, ease:Elastic.eastInOut, onComplete:blowUp}, 0.7);
+	var hide = document.getElementById("side");
+	hide.style.visibility = "hidden";
+	var cont = document.getElementById("board");
+	cont.style.width = "1300px";
+	TweenMax.to(".cards", 2, {x:50, ease:Elastic.eastInOut, onComplete:blowUp}, 0.7);
 	
 }
 
 function blowUp() {
-		header.innerHTML = "Your Future:";
+	header.innerHTML = "Your Future:";
 
-		var cards = document.getElementsByClassName("assigned");
+	var cards = document.getElementsByClassName("assigned");
 	for (var n =0; n < 4; n++) {
-		cards[n].style.width = "250px";
-		cards[n].style.height = "300px";
-		cards[n].style.fontSize = "2em";
+		cards[n].style.width = "200px";
+		cards[n].style.height = "225px";
+		cards[n].style.fontSize = "1.5em";
 	}
 	document.getElementById("board").style.marginLeft = "1%";
+	document.getElementById("main").style.marginLeft = "1%";
+
+	var sidebar = document.getElementsByClassName("sidebar");
+	sidebar[0].style.display = "inline-block";
+	// document.getElementsByClassName("curtain")[0].style.marginLeft = "1em";
+	// document.getElementsByClassName("curtain")[0].style.display = "block";
 
 // var newButton = document.createElement('button');
 // newButton.id = "newButton";
@@ -251,20 +259,20 @@ function blowUp() {
 
 }
 
-		function randShape() {
-			var shapes = ["25px","50px","0px 20px","20px 0px","0px 20px 50px","20px 0px 50px","0px 20px 50px 50px","50px 0px 20px 50px","50px 50px 50px 0px","50px 0px 50px 50px"];
-			var shapeIndex = Math.floor(Math.random()*shapes.length)
-			var shapeMaker = shapes[shapeIndex];
-			return shapeMaker
-		}
+function randShape() {
+	var shapes = ["25px","50px","0px 20px","20px 0px","0px 20px 50px","20px 0px 50px","0px 20px 50px 50px","50px 0px 20px 50px","50px 50px 50px 0px","50px 0px 50px 50px"];
+	var shapeIndex = Math.floor(Math.random()*shapes.length)
+	var shapeMaker = shapes[shapeIndex];
+	return shapeMaker
+}
 
 
-		function randNum(num) {
-			var rand = Math.floor(Math.random()*num);
-			return rand;
-		}
+function randNum(num) {
+	var rand = Math.floor(Math.random()*num);
+	return rand;
+}
 
-		begin();
-	}
+begin();
+}
 
-	fortuneTellerApp();
+fortuneTellerApp();
