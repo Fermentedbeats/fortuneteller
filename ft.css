@@ -88,7 +88,7 @@ body {
 	margin: 10% 10% 0 0;
 	border-radius: 15%;
 	font-family: coldcoffee;
-	color: yellow;
+	color: white;
 }
 .sidebar p {
 	margin: 1em;
@@ -104,6 +104,9 @@ body {
 	text-align: center;
 	font-size: .5em;
 } 
+.sidebar a {
+	color: gold;
+}
 
 /*******  NAV *********/
 #navDiv {
